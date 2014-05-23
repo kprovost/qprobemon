@@ -1,0 +1,11 @@
+This tool visualises WiFi probe requests to demonstrate their privacy
+implications.
+
+Requirements
+============
+
+ * libiw-dev
+ * Qt 5
+ * A wifi network card with monitoring capabilities.
+
+
