@@ -11,6 +11,8 @@ qt4_wrap_cpp(HDR_MOC ${HDR})
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
 
+set(CMAKE_CXX_FLAGS "-Wall -Werror")
+
 add_executable(qprobemon ${SRC} ${HDR_MOC})
 target_link_libraries(qprobemon ${QT_LIBRARIES})
 install(TARGETS qprobemon DESTINATION bin)
