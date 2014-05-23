@@ -2,6 +2,8 @@
 #include <QStringList>
 #include <iostream>
 
+#include "InterfaceManager.h"
+
 void usage(const QString &appName)
 {
     std::cerr << "Usage: " << appName.toStdString() << " <wifi interface>"
@@ -24,6 +26,13 @@ int main(int argc, char **argv)
     }
 
     QString interface = args.at(0);
+    InterfaceManagerP_t im = InterfaceManager::create(interface);
+    if (! im)
+    {
+        std::cerr << "Unable to open interface " << interface.toStdString()
+            << std::endl;
+        return 1;
+    }
 
     return app.exec();
 }

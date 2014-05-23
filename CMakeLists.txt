@@ -3,8 +3,12 @@ cmake_minimum_required(VERSION 2.8)
 project(qprobemon)
 find_package(Qt4 REQUIRED QtCore QtGui)
 
-set(SRC src/main.cpp)
-set(HDR )
+set(SRC
+    src/main.cpp
+    src/InterfaceManager.cpp)
+
+set(HDR
+    src/InterfaceManager.h)
 
 qt4_wrap_cpp(HDR_MOC ${HDR})
 
