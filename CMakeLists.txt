@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 
+SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+
 project(qprobemon)
 find_package(Qt4 REQUIRED QtCore QtGui)
+find_package(Iw REQUIRED)
 
 set(SRC
     src/main.cpp
@@ -17,6 +20,8 @@ add_definitions(${QT_DEFINITIONS})
 
 set(CMAKE_CXX_FLAGS "-Wall -Werror")
 
+include_directories(${IW_INCLUDE_DIR})
+
 add_executable(qprobemon ${SRC} ${HDR_MOC})
-target_link_libraries(qprobemon ${QT_LIBRARIES})
+target_link_libraries(qprobemon ${QT_LIBRARIES} ${IW_LIBRARIES})
 install(TARGETS qprobemon DESTINATION bin)
