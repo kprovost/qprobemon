@@ -14,8 +14,13 @@ class InterfaceManager : public QObject
 public:
     static InterfaceManagerP_t create(const QString &interface);
 
+    ~InterfaceManager();
+
+    bool open();
+
 private:
     InterfaceManager(const QString &interface);
 
     const QString &m_interface;
+    int m_iw_fd;
 };
