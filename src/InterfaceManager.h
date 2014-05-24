@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QSharedPointer>
 
+#include "iwlib.h"
+
 class InterfaceManager;
 
 typedef QSharedPointer<InterfaceManager> InterfaceManagerP_t;
@@ -17,10 +19,12 @@ public:
     ~InterfaceManager();
 
     bool open();
+    void close();
 
 private:
     InterfaceManager(const QString &interface);
 
     const QString &m_interface;
     int m_iw_fd;
+    wireless_config m_old_config;
 };
