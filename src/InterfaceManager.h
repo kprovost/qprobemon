@@ -2,12 +2,14 @@
 
 #include <QObject>
 #include <QSharedPointer>
+#include <QList>
 
 #include "iwlib.h"
 
 class InterfaceManager;
 
 typedef QSharedPointer<InterfaceManager> InterfaceManagerP_t;
+typedef QList<int> ChannelList_t;
 
 class InterfaceManager : public QObject
 {
@@ -20,6 +22,8 @@ public:
 
     bool open();
     void close();
+
+    ChannelList_t getChannels();
 
 private:
     InterfaceManager(const QString &interface);
