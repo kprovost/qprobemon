@@ -14,7 +14,6 @@ void usage(const QString &appName)
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
-    MainWindow mainWindow;
 
     QStringList args = app.arguments();
 
@@ -36,6 +35,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    MainWindow mainWindow(im);
     mainWindow.show();
 
     return app.exec();

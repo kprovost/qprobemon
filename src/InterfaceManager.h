@@ -24,6 +24,7 @@ public:
     void close();
 
     ChannelList_t getChannels();
+    const QString& getInterfaceName() const { return m_interface; }
 
 private:
     InterfaceManager(const QString &interface);
