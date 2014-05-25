@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "InterfaceManager.h"
+#include "MainWindow.h"
 
 void usage(const QString &appName)
 {
@@ -13,6 +14,7 @@ void usage(const QString &appName)
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
+    MainWindow mainWindow;
 
     QStringList args = app.arguments();
 
@@ -33,6 +35,8 @@ int main(int argc, char **argv)
             << std::endl;
         return 1;
     }
+
+    mainWindow.show();
 
     return app.exec();
 }

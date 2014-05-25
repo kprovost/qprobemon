@@ -8,10 +8,12 @@ find_package(Iw REQUIRED)
 
 set(SRC
     src/main.cpp
-    src/InterfaceManager.cpp)
+    src/InterfaceManager.cpp
+    src/MainWindow.cpp)
 
 set(HDR
-    src/InterfaceManager.h)
+    src/InterfaceManager.h
+    src/MainWindow.h)
 
 qt4_wrap_cpp(HDR_MOC ${HDR})
 
