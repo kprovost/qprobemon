@@ -20,14 +20,14 @@ public:
 
     ~InterfaceManager();
 
-    bool open();
-    void close();
-
     ChannelList_t getChannels();
     const QString& getInterfaceName() const { return m_interface; }
 
 private:
     InterfaceManager(const QString &interface);
+
+    bool open();
+    void close();
 
     const QString &m_interface;
     int m_iw_fd;
