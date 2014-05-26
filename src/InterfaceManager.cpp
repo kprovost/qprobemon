@@ -61,7 +61,7 @@ void InterfaceManager::close()
 
 bool InterfaceManager::monitor()
 {
-    struct iwreq      wrq;
+    struct iwreq wrq;
     wrq.u.mode = IW_MODE_MONITOR;
 
     int ret = iw_set_ext(m_iw_fd, m_interface.toStdString().c_str(),
