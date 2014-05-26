@@ -81,17 +81,8 @@ ChannelList_t InterfaceManager::getChannels()
     iwrange range;
     ChannelList_t channels;
 
-    assert(m_iw_fd >= 0);
-
-    int ret = iw_get_range_info(m_iw_fd, m_interface.toStdString().c_str(),
-            &range);
-    if (ret != 0)
-    {
-        std::cerr << "Failed to get channel list for interface "
-            << m_interface.toStdString() << ": " << strerror(errno)
-            << std::endl;
+    if (! getRange(range))
         return channels;
-    }
 
     /* It's odd that there are two counts: frequency and channels. I'd expect
      * them to always be identical, and that appears to be the case too. */
@@ -104,4 +95,21 @@ ChannelList_t InterfaceManager::getChannels()
     }
 
     return channels;
+}
+
+bool InterfaceManager::getRange(iwrange &range)
+{
+    assert(m_iw_fd >= 0);
+
+    int ret = iw_get_range_info(m_iw_fd, m_interface.toStdString().c_str(),
+            &range);
+    if (ret != 0)
+    {
+        std::cerr << "Failed to get channel list for interface "
+            << m_interface.toStdString() << ": " << strerror(errno)
+            << std::endl;
+        return false;
+    }
+
+    return true;
 }
