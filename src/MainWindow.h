@@ -24,4 +24,7 @@ private:
     QComboBox *m_channelList;
 
     InterfaceManagerP_t m_interface;
+
+private slots:
+    void  channelChange(int index);
 };

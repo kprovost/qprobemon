@@ -16,6 +16,8 @@ MainWindow::MainWindow(InterfaceManagerP_t im, QWidget *parent)
 
     setLayout(m_layout);
 
+    connect(m_channelList, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(channelChange(int)));
     updateChannelList();
 }
 
@@ -31,6 +33,12 @@ void MainWindow::updateChannelList()
 
     foreach(int channel, channels)
     {
-        m_channelList->addItem(QString("%1").arg(channel));
+        m_channelList->addItem(QString("%1").arg(channel), QVariant(channel));
     }
+}
+
+void  MainWindow::channelChange(int index)
+{
+    QVariant channel = m_channelList->itemData(index);
+    m_interface->setChannel(channel.toInt());
 }
