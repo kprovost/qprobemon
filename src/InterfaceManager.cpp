@@ -59,6 +59,23 @@ void InterfaceManager::close()
     m_iw_fd = -1;
 }
 
+bool InterfaceManager::monitor()
+{
+    struct iwreq      wrq;
+    wrq.u.mode = IW_MODE_MONITOR;
+
+    int ret = iw_set_ext(m_iw_fd, m_interface.toStdString().c_str(),
+            SIOCSIWMODE, &wrq);
+    if (ret < 0)
+    {
+        std::cerr << "Failed to switch interface " << m_interface.toStdString()
+            << " to monitor mode: " << strerror(errno) << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 ChannelList_t InterfaceManager::getChannels()
 {
     iwrange range;
