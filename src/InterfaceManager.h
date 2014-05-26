@@ -20,10 +20,12 @@ public:
 
     ~InterfaceManager();
 
-    ChannelList_t getChannels();
     const QString& getInterfaceName() const { return m_interface; }
 
     bool monitor();
+
+    ChannelList_t getChannels();
+    bool setChannel(const int channel);
 
 private:
     InterfaceManager(const QString &interface);

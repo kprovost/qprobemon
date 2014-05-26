@@ -97,6 +97,39 @@ ChannelList_t InterfaceManager::getChannels()
     return channels;
 }
 
+bool InterfaceManager::setChannel(const int channel)
+{
+    struct iwreq wrq;
+    iwrange range;
+
+    if (! getRange(range))
+        return false;
+
+    double freq;
+    int ret = iw_channel_to_freq(channel, &freq, &range);
+    if (ret < 0)
+    {
+        std::cerr << "Failed to get frequency for channel " << channel
+            << ": " << strerror(errno) << std::endl;
+        return false;
+    }
+
+    iw_float2freq(freq, &(wrq.u.freq));
+    wrq.u.freq.flags = IW_FREQ_FIXED;
+
+    assert(m_iw_fd >= 0);
+    ret = iw_set_ext(m_iw_fd, m_interface.toStdString().c_str(),
+            SIOCSIWFREQ, &wrq);
+    if (ret < 0)
+    {
+        std::cerr << "Failed to set channel " << channel
+            << ": " << strerror(errno) << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 bool InterfaceManager::getRange(iwrange &range)
 {
     assert(m_iw_fd >= 0);
