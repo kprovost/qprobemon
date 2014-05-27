@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "InterfaceManager.h"
+#include "Sniffer.h"
 #include "MainWindow.h"
 
 void usage(const QString &appName)
@@ -37,6 +38,14 @@ int main(int argc, char **argv)
 
     if (! im->monitor())
     {
+        return 1;
+    }
+
+    SnifferP_t sniff = Sniffer::create(interface);
+    if (! sniff)
+    {
+        std::cerr << "Unable to sniff on interface " << interface.toStdString()
+            << std::endl;
         return 1;
     }
 
