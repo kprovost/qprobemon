@@ -9,11 +9,13 @@ find_package(Iw REQUIRED)
 set(SRC
     src/main.cpp
     src/InterfaceManager.cpp
-    src/MainWindow.cpp)
+    src/MainWindow.cpp
+    src/Sniffer.cpp)
 
 set(HDR
     src/InterfaceManager.h
-    src/MainWindow.h)
+    src/MainWindow.h
+    src/Sniffer.h)
 
 qt4_wrap_cpp(HDR_MOC ${HDR})
 
