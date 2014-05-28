@@ -43,12 +43,32 @@ bool Sniffer::open()
         return false;
     }
 
+    if (pcap_setnonblock(m_pcap, 1, errbuf) == -1) {
+        std::cerr << "Failed to set pcap to non-blocking mode: " << errbuf
+            << std::endl;
+        close();
+        return false;
+    }
+
+    m_notifier.reset(new QSocketNotifier(pcap_get_selectable_fd(m_pcap),
+            QSocketNotifier::Read));
+    m_notifier->setEnabled(true);
+
+    connect(m_notifier.data(), SIGNAL(activated(int)),
+            this, SLOT(activated(int)));
+
     return true;
 }
 
 void Sniffer::close()
 {
     assert(m_pcap);
+    m_notifier.reset();
     pcap_close(m_pcap);
     m_pcap = NULL;
+}
+
+void Sniffer::activated(int socket)
+{
+
 }

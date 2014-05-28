@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QObject>
+#include <QScopedPointer>
 #include <QSharedPointer>
+#include <QSocketNotifier>
 #include <pcap/pcap.h>
 
 class Sniffer;
@@ -22,7 +24,11 @@ private:
     void close();
 
     const QString &m_interface;
+    QScopedPointer<QSocketNotifier> m_notifier;
     pcap_t *m_pcap;
 
     static const int SNAPLEN;
+
+private slots:
+    void activated(int socket);
 };
