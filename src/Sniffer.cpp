@@ -39,7 +39,7 @@ bool Sniffer::open()
     if (! m_pcap)
     {
         std::cerr << "Failed to open pcap interface " << m_interface.toStdString()
-            << ": " << errbuf;
+            << ": " << errbuf << std::endl;
         return false;
     }
 
