@@ -47,12 +47,20 @@ bool InterfaceManager::open()
         return false;
     }
 
+    m_old_isUp = isIfUp();
+
     return true;
 }
 
 void InterfaceManager::close()
 {
     assert(m_iw_fd >= 0);
+
+    if (m_old_isUp)
+        ifUp();
+    else
+        ifDown();
+
     iw_set_basic_config(m_iw_fd, m_interface.toStdString().c_str(),
             &m_old_config);
     ::close(m_iw_fd);
@@ -64,6 +72,9 @@ bool InterfaceManager::monitor()
     struct iwreq wrq;
     wrq.u.mode = IW_MODE_MONITOR;
 
+    if (! ifDown())
+        return false;
+
     int ret = iw_set_ext(m_iw_fd, m_interface.toStdString().c_str(),
             SIOCSIWMODE, &wrq);
     if (ret < 0)
@@ -72,6 +83,9 @@ bool InterfaceManager::monitor()
             << " to monitor mode: " << strerror(errno) << std::endl;
         return false;
     }
+
+    if (! ifUp())
+        return false;
 
     return true;
 }
@@ -145,4 +159,73 @@ bool InterfaceManager::getRange(iwrange &range)
     }
 
     return true;
+}
+
+bool InterfaceManager::getIfState(struct ifreq &ifr)
+{
+    assert(m_iw_fd >= 0);
+
+    snprintf(ifr.ifr_name, IFNAMSIZ, "%s", m_interface.toStdString().c_str());
+
+    int ret = ioctl(m_iw_fd, SIOCGIFFLAGS, &ifr);
+    if (ret < 0)
+    {
+        std::cerr << "Failed to get interface flags for interface "
+            << m_interface.toStdString() << ": " << strerror(errno)
+            << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool InterfaceManager::setIfState(struct ifreq &ifr)
+{
+    assert(m_iw_fd >= 0);
+
+    snprintf(ifr.ifr_name, IFNAMSIZ, "%s", m_interface.toStdString().c_str());
+
+    int ret = ioctl(m_iw_fd, SIOCSIFFLAGS, &ifr);
+    if (ret < 0)
+    {
+        std::cerr << "Failed to set interface " << m_interface.toStdString()
+            << " up: " << strerror(errno) << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+
+bool InterfaceManager::ifDown()
+{
+    struct ifreq ifr;
+
+    if (! getIfState(ifr))
+        return false;
+
+    ifr.ifr_flags &= ~IFF_UP;
+
+    return setIfState(ifr);
+}
+
+bool InterfaceManager::ifUp()
+{
+    struct ifreq ifr;
+
+    if (! getIfState(ifr))
+        return false;
+
+    ifr.ifr_flags |= IFF_UP;
+
+    return setIfState(ifr);
+}
+
+bool InterfaceManager::isIfUp()
+{
+    struct ifreq ifr;
+    if (! getIfState(ifr))
+        return false;
+
+    return ifr.ifr_flags & IFF_UP;
 }

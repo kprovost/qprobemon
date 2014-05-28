@@ -33,9 +33,16 @@ private:
     bool open();
     void close();
 
+    bool setIfState(struct ifreq &ifr);
+    bool getIfState(struct ifreq &ifr);
+    bool ifDown();
+    bool ifUp();
+    bool isIfUp();
+
     bool getRange(iwrange &range);
 
     const QString &m_interface;
     int m_iw_fd;
     wireless_config m_old_config;
+    bool m_old_isUp;
 };
