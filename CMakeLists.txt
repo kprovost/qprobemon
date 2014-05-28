@@ -11,11 +11,13 @@ set(SRC
     src/main.cpp
     src/InterfaceManager.cpp
     src/MainWindow.cpp
+    src/Packet.cpp
     src/Sniffer.cpp)
 
 set(HDR
     src/InterfaceManager.h
     src/MainWindow.h
+    src/Packet.h
     src/Sniffer.h)
 
 qt4_wrap_cpp(HDR_MOC ${HDR})

@@ -6,6 +6,8 @@
 #include <QSocketNotifier>
 #include <pcap/pcap.h>
 
+#include "Packet.h"
+
 class Sniffer;
 typedef QSharedPointer<Sniffer> SnifferP_t;
 
@@ -17,6 +19,9 @@ public:
     static SnifferP_t create(const QString &interface);
 
     ~Sniffer();
+
+signals:
+    void received(PacketP_t p);
 
 private:
     Sniffer(const QString &interface);

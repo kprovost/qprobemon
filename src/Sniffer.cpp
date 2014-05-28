@@ -70,5 +70,21 @@ void Sniffer::close()
 
 void Sniffer::activated(int socket)
 {
-
+    struct pcap_pkthdr *pkt_header = NULL;
+    const u_char *pkt_data = NULL;
+    int ret = pcap_next_ex(m_pcap, &pkt_header, &pkt_data);
+    if (ret == 1)
+    {
+        PacketP_t pkt(new Packet(pkt_header, pkt_data));
+        emit received(pkt);
+    }
+    else if (ret == 0)
+    {
+        // Timeout
+    }
+    else
+    {
+        std::cerr << "Failed to read packet: " << pcap_geterr(m_pcap)
+            << std::endl;
+    }
 }
