@@ -2,11 +2,11 @@
 #include <assert.h>
 #include <stdint.h>
 
-struct ieee80211_radiotap_header {
-    uint8_t        it_version;     /* set to 0 */
-    uint8_t        it_pad;
-    uint16_t       it_len;         /* entire length */
-    uint32_t       it_present;     /* fields present */
+struct ieee80211_radiotap_hdr {
+    uint8_t        version;     /* set to 0 */
+    uint8_t        pad;
+    uint16_t       len;         /* entire length */
+    uint32_t       present;     /* fields present */
 } __attribute__((__packed__));
 
 #define WLAN_FC_TYPE_MGMT       0
@@ -47,21 +47,20 @@ ProbeRequestFilter::ProbeRequestFilter()
 
 void ProbeRequestFilter::received(PacketP_t packet)
 {
-    assert(packet->size() >= sizeof(struct ieee80211_radiotap_header));
+    assert(packet->size() >= sizeof(struct ieee80211_radiotap_hdr));
 
-    const struct ieee80211_radiotap_header *rh =
-        (const struct ieee80211_radiotap_header*)packet->getData().data();
+    const struct ieee80211_radiotap_hdr *rh =
+        (const struct ieee80211_radiotap_hdr*)packet->getData().data();
 
-    assert(rh->it_version == 0);
+    assert(rh->version == 0);
 
-    packet->pull(rh->it_len);
+    packet->pull(rh->len);
     // At this point we can no longer dereference the rh pointer!
     rh = NULL;
 
     assert(packet->size() >= sizeof(struct ieee80211_hdr));
     const struct ieee80211_hdr *hdr =
         (const struct ieee80211_hdr*)packet->getData().data();
-
 
     /* We're only interested in administrative frames, not data frames */
     if (IEEE80211_TYPE(hdr->frame_control) != WLAN_FC_TYPE_MGMT)
