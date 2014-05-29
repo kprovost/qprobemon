@@ -17,6 +17,8 @@ ProbeRequestFilter::ProbeRequestFilter()
 
 void ProbeRequestFilter::received(PacketP_t packet)
 {
+    assert(packet->size() >= sizeof(struct ieee80211_radiotap_header));
+
     const struct ieee80211_radiotap_header *rh =
         (const struct ieee80211_radiotap_header*)packet->getData().data();
 
