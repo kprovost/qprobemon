@@ -7,6 +7,7 @@ class ProbeRequest : public QObject
 {
     Q_OBJECT;
 
+public:
     QString mac;
     QString SSID;
 };
