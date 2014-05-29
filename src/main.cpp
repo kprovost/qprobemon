@@ -4,6 +4,7 @@
 
 #include "InterfaceManager.h"
 #include "Sniffer.h"
+#include "ProbeRequestFilter.h"
 #include "MainWindow.h"
 
 void usage(const QString &appName)
@@ -48,6 +49,11 @@ int main(int argc, char **argv)
             << std::endl;
         return 1;
     }
+
+    ProbeRequestFilter filter;
+
+    QObject::connect(sniff.data(), SIGNAL(received(PacketP_t)),
+            &filter, SLOT(received(PacketP_t)));
 
     MainWindow mainWindow(im);
     mainWindow.show();
