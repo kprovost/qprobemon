@@ -2,7 +2,7 @@
 
 #include <QObject>
 #include <QSharedPointer>
-#include <QScopedArrayPointer>
+#include <QByteArray>
 #include <pcap/pcap.h>
 
 class Packet;
@@ -18,8 +18,9 @@ public:
     ~Packet();
 
     const struct timeval& getTime() const { return m_time; }
+    const QByteArray& getData() const { return m_data; }
 
 private:
-    QScopedArrayPointer<quint8> m_data;
+    QByteArray m_data;
     const struct timeval m_time;
 };
