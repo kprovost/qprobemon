@@ -19,7 +19,7 @@ public:
 
     const struct timeval& getTime() const { return m_time; }
     const QByteArray& getData() const { return m_data; }
-    const int size() const { return m_data.size(); }
+    const size_t size() const { return m_data.size(); }
 
     void pull(int len);
 
