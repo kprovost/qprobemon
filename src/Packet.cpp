@@ -2,7 +2,8 @@
 #include <assert.h>
 
 Packet::Packet(const pcap_pkthdr *pkt_header, const u_char *pkt_data)
-    : QObject()
+    : QObject(),
+      m_time(pkt_header->ts)
 {
     assert(pkt_header);
     assert(pkt_data);

@@ -17,6 +17,9 @@ public:
     Packet(const pcap_pkthdr *pkt_header, const u_char *pkt_data);
     ~Packet();
 
+    const struct timeval& getTime() const { return m_time; }
+
 private:
     QScopedArrayPointer<quint8> m_data;
+    const struct timeval m_time;
 };
