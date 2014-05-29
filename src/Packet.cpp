@@ -15,3 +15,14 @@ Packet::~Packet()
 {
 
 }
+
+/* pull
+ * Shorten the packet by removing len bytes from the front.
+ */
+void Packet::pull(int len)
+{
+    assert(len > 0);
+    assert(m_data.size() >= len);
+
+    m_data.remove(0, len);
+}

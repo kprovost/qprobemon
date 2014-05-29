@@ -21,4 +21,8 @@ void ProbeRequestFilter::received(PacketP_t packet)
         (const struct ieee80211_radiotap_header*)packet->getData().data();
 
     assert(rh->it_version == 0);
+
+    packet->pull(rh->it_len);
+    // At this point we can no longer dereference the rh pointer!
+    rh = NULL;
 }
