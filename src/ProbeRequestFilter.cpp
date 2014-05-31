@@ -1,6 +1,5 @@
 #include "ProbeRequestFilter.h"
 #include <assert.h>
-#include <stdint.h>
 
 struct ieee80211_radiotap_hdr {
     quint8         version;     /* set to 0 */
