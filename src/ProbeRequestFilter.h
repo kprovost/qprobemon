@@ -2,13 +2,16 @@
 
 #include <QObject>
 #include "Packet.h"
+#include "MacAddress.h"
 
 class ProbeRequest : public QObject
 {
     Q_OBJECT;
 
 public:
-    QString mac;
+    ProbeRequest(const quint8* mac);
+
+    MacAddress mac;
     QString SSID;
 };
 typedef QSharedPointer<ProbeRequest> ProbeRequestP_t;

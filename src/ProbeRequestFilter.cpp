@@ -39,6 +39,12 @@ struct ieee80211_hdr {
     quint16  seq_ctrl;
 } __attribute__((__packed__));
 
+ProbeRequest::ProbeRequest(const quint8* macAddr)
+    : mac(macAddr)
+{
+
+}
+
 ProbeRequestFilter::ProbeRequestFilter()
     : QObject()
 {
@@ -71,14 +77,7 @@ void ProbeRequestFilter::received(PacketP_t packet)
         return;
 
     /* Copy out mac address */
-    ProbeRequestP_t req(new ProbeRequest);
-    req->mac = QString("%1:%2:%3:%4:%5:%6")
-        .arg(QString::number(hdr->addr2[0]))
-        .arg(QString::number(hdr->addr2[1]))
-        .arg(QString::number(hdr->addr2[2]))
-        .arg(QString::number(hdr->addr2[3]))
-        .arg(QString::number(hdr->addr2[4]))
-        .arg(QString::number(hdr->addr2[5]));
+    ProbeRequestP_t req(new ProbeRequest(hdr->addr2));
 
     emit probeRequest(req);
 }

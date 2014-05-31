@@ -10,6 +10,7 @@ find_package(pcap REQUIRED)
 set(SRC
     src/main.cpp
     src/InterfaceManager.cpp
+    src/MacAddress.cpp
     src/MainWindow.cpp
     src/Packet.cpp
     src/ProbeRequestFilter.cpp
@@ -17,6 +18,7 @@ set(SRC
 
 set(HDR
     src/InterfaceManager.h
+    src/MacAddress.h
     src/MainWindow.h
     src/Packet.h
     src/ProbeRequestFilter.h
