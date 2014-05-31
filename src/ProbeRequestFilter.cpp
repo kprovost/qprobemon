@@ -3,10 +3,10 @@
 #include <stdint.h>
 
 struct ieee80211_radiotap_hdr {
-    uint8_t        version;     /* set to 0 */
-    uint8_t        pad;
-    uint16_t       len;         /* entire length */
-    uint32_t       present;     /* fields present */
+    quint8         version;     /* set to 0 */
+    quint8         pad;
+    quint16        len;         /* entire length */
+    quint32        present;     /* fields present */
 } __attribute__((__packed__));
 
 #define WLAN_FC_TYPE_MGMT       0
@@ -31,12 +31,12 @@ struct ieee80211_radiotap_hdr {
 #define IEEE80211_STYPE(frame_control) ((frame_control >> 4) & 0xf)
 
 struct ieee80211_hdr {
-    uint16_t frame_control;
-    uint16_t duration_id;
-    uint8_t  addr1[6];
-    uint8_t  addr2[6];
-    uint8_t  addr3[6];
-    uint16_t seq_ctrl;
+    quint16  frame_control;
+    quint16  duration_id;
+    quint8   addr1[6];
+    quint8   addr2[6];
+    quint8   addr3[6];
+    quint16  seq_ctrl;
 } __attribute__((__packed__));
 
 ProbeRequestFilter::ProbeRequestFilter()
