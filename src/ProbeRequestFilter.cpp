@@ -1,6 +1,7 @@
 #include "ProbeRequestFilter.h"
 #include <assert.h>
 #include "ieee802.11.h"
+#include "TagParser.h"
 
 ProbeRequest::ProbeRequest(const quint8* macAddr)
     : mac(macAddr)
@@ -41,6 +42,15 @@ void ProbeRequestFilter::received(PacketP_t packet)
 
     /* Copy out mac address */
     ProbeRequestP_t req(new ProbeRequest(hdr->addr2));
+
+    packet->pull(sizeof(struct ieee80211_hdr));
+    hdr = NULL;
+
+    TagParser tp(packet->getData());
+
+    assert(tp.hasTag(WLAN_EID_SSID));
+
+    req->SSID = tp.getTagData(WLAN_EID_SSID);
 
     emit probeRequest(req);
 }
