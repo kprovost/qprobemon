@@ -14,6 +14,7 @@ set(SRC
     src/MainWindow.cpp
     src/Packet.cpp
     src/ProbeRequestFilter.cpp
+    src/TagParser.cpp
     src/Sniffer.cpp)
 
 set(HDR
@@ -22,6 +23,7 @@ set(HDR
     src/MainWindow.h
     src/Packet.h
     src/ProbeRequestFilter.h
+    src/TagParser.h
     src/Sniffer.h)
 
 qt4_wrap_cpp(HDR_MOC ${HDR})
