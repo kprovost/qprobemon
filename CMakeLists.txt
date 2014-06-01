@@ -29,7 +29,7 @@ qt4_wrap_cpp(HDR_MOC ${HDR})
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
 
-set(CMAKE_CXX_FLAGS "-Wall -Werror")
+set(CMAKE_CXX_FLAGS "-g -Wall -Werror")
 
 include_directories(${IW_INCLUDE_DIR})
 include_directories(${PCAP_INCLUDE_DIR})
