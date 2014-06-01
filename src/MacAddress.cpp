@@ -13,10 +13,10 @@ QString MacAddress::toString() const
     assert(m_mac.size() == 6);
 
     return QString("%1:%2:%3:%4:%5:%6")
-        .arg(QString::number(m_mac[0], 16))
-        .arg(QString::number(m_mac[1], 16))
-        .arg(QString::number(m_mac[2], 16))
-        .arg(QString::number(m_mac[3], 16))
-        .arg(QString::number(m_mac[4], 16))
-        .arg(QString::number(m_mac[5], 16));
+        .arg(QString::number((unsigned char)m_mac[0], 16))
+        .arg(QString::number((unsigned char)m_mac[1], 16))
+        .arg(QString::number((unsigned char)m_mac[2], 16))
+        .arg(QString::number((unsigned char)m_mac[3], 16))
+        .arg(QString::number((unsigned char)m_mac[4], 16))
+        .arg(QString::number((unsigned char)m_mac[5], 16));
 }
