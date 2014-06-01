@@ -51,6 +51,8 @@ void ProbeRequestFilter::received(PacketP_t packet)
     assert(tp.hasTag(WLAN_EID_SSID));
 
     req->SSID = tp.getTagData(WLAN_EID_SSID);
+    if (req->SSID.size() == 0)
+        req->SSID = "Broadcast";
 
     emit probeRequest(req);
 }
