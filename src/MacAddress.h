@@ -2,10 +2,8 @@
 
 #include <QObject>
 
-class MacAddress : public QObject
+class MacAddress
 {
-    Q_OBJECT;
-
 public:
     MacAddress(const quint8 *mac);
 
