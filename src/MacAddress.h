@@ -11,6 +11,8 @@ public:
     QString getOUID() const;
     QString getManufacturer() const;
 
+    bool operator<(const MacAddress &mac) const;
+
 private:
     QByteArray m_mac;
 

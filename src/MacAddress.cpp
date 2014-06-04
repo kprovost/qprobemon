@@ -73,3 +73,8 @@ QString MacAddress::getManufacturer() const
 
     return "Unknown";
 }
+
+bool MacAddress::operator<(const MacAddress &mac) const
+{
+    return m_mac < mac.m_mac;
+}
