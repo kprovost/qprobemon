@@ -28,6 +28,8 @@ class ProbeStore : public QObject
 public:
     ProbeStore();
 
+    int size() const { return m_store.size(); }
+
 public slots:
     void probeRequest(ProbeRequestP_t pr);
 
