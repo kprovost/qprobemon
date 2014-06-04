@@ -6,6 +6,7 @@
 #include "Sniffer.h"
 #include "ProbeRequestFilter.h"
 #include "MainWindow.h"
+#include "ProbeStore.h"
 
 void usage(const QString &appName)
 {
@@ -54,6 +55,11 @@ int main(int argc, char **argv)
 
     QObject::connect(sniff.data(), SIGNAL(received(PacketP_t)),
             &filter, SLOT(received(PacketP_t)));
+
+    ProbeStore store;
+
+    QObject::connect(&filter, SIGNAL(probeRequest(ProbeRequestP_t)),
+                &store, SLOT(probeRequest(ProbeRequestP_t)));
 
     MainWindow mainWindow(im);
     mainWindow.show();
