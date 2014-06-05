@@ -15,6 +15,11 @@ bool Station::addSSID(const QString &SSID)
     return isNew;
 }
 
+const QString& Station::getSSID(int index) const
+{
+    return m_SSIDs.values().at(index);
+}
+
 ProbeStore::ProbeStore()
 {
 
