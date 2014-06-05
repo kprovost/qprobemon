@@ -2,7 +2,7 @@
 
 #include <QAbstractItemModel>
 #include "ProbeStore.h"
-
+#include <assert.h>
 
 class ProbesModel : public QAbstractItemModel
 {
