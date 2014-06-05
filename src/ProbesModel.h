@@ -55,6 +55,8 @@ public:
         }
     }
 
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+
 public slots:
     void newStation();
     void newSSID(MacAddress mac);
