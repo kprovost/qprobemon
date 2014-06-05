@@ -20,6 +20,17 @@ ProbeStore::ProbeStore()
 
 }
 
+const StationPtr_t ProbeStore::getStation(const MacAddress& mac) const
+{
+    StationMap_t::const_iterator it = m_store.find(mac);
+    StationPtr_t sta;
+
+    if (it == m_store.end())
+        return sta;
+
+    return it.value();
+}
+
 const MacAddress& ProbeStore::get(int index) const
 {
     assert(index < size());

@@ -33,6 +33,7 @@ public:
     int size() const { return m_store.size(); }
 
     const MacAddress& get(int index) const;
+    const StationPtr_t getStation(const MacAddress& mac) const;
 
 signals:
     void newStation();
