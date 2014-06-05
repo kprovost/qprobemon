@@ -32,6 +32,8 @@ public:
 
     int size() const { return m_store.size(); }
 
+    const MacAddress& get(int index) const;
+
 signals:
     void newStation();
     void newSSID(MacAddress station);

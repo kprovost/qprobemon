@@ -20,6 +20,22 @@ ProbeStore::ProbeStore()
 
 }
 
+const MacAddress& ProbeStore::get(int index) const
+{
+    assert(index < size());
+    int i = 0;
+
+    StationMap_t::const_iterator it = m_store.begin();
+
+    while (i < index)
+    {
+        it++;
+        i++;
+    }
+
+    return it.key();
+}
+
 void ProbeStore::probeRequest(ProbeRequestP_t pr)
 {
     assert(pr);
