@@ -15,23 +15,40 @@ public:
     QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const
     {
         if (parent.isValid())
-            return QModelIndex();
+        {
+            if (parent.internalId() != -1)
+                return QModelIndex();
 
-        return createIndex(row, column);
+            return createIndex(row, column, parent.row());
+        }
+
+        return createIndex(row, column, -1);
     }
 
     QModelIndex parent(const QModelIndex &index) const
     {
-        return QModelIndex();
+        if (index.internalId() == -1)
+            return QModelIndex();
+
+        return createIndex(index.internalId(), 0, -1);
     }
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const
     {
-        return m_store.size();
+        if (! parent.isValid())
+            return m_store.size();
+
+        const MacAddress &mac = m_store.get(parent.internalId());
+        const StationPtr_t station = m_store.getStation(mac);
+
+        return station->getSSIDcount();
     }
 
     int columnCount(const QModelIndex & parent = QModelIndex()) const
     {
+        if (parent.isValid())
+            return 1;
+
         return 2;
     }
 
@@ -40,18 +57,30 @@ public:
         if (role != Qt::DisplayRole)
             return QVariant();
 
-        const MacAddress &mac = m_store.get(index.row());
-        if (index.column() == 0)
+        if (index.internalId() == -1)
         {
-            return QVariant(mac.toString());
+            const MacAddress &mac = m_store.get(index.row());
+            if (index.column() == 0)
+            {
+                return QVariant(mac.toString());
+            }
+            else if (index.column() == 1)
+            {
+                return QVariant(mac.getManufacturer());
+            }
+            else
+            {
+                assert(false);
+            }
         }
-        else if (index.column() == 1)
+        else
         {
-            return QVariant(mac.getManufacturer());
-        }
-        else 
-        {
-            assert(false);
+            if (index.column() != 0)
+                return QVariant();
+
+            const MacAddress &mac = m_store.get(index.internalId());
+            const StationPtr_t station = m_store.getStation(mac);
+            return QVariant(station->getSSID(index.row()));
         }
     }
 
