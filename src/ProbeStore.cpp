@@ -1,4 +1,5 @@
 #include "ProbeStore.h"
+#include <assert.h>
 
 Station::Station(const MacAddress &mac)
     : m_mac(mac)
@@ -18,6 +19,8 @@ ProbeStore::ProbeStore()
 
 void ProbeStore::probeRequest(ProbeRequestP_t pr)
 {
+    assert(pr);
+
     StationMap_t::iterator it = m_store.find(pr->mac);
     StationPtr_t sta;
 
