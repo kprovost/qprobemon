@@ -7,9 +7,12 @@ Station::Station(const MacAddress &mac)
 
 }
 
-void Station::addSSID(const QString &SSID)
+bool Station::addSSID(const QString &SSID)
 {
+    bool isNew = not m_SSIDs.contains(SSID);
     m_SSIDs.insert(SSID);
+
+    return isNew;
 }
 
 ProbeStore::ProbeStore()
@@ -32,7 +35,11 @@ void ProbeStore::probeRequest(ProbeRequestP_t pr)
     {
         sta = StationPtr_t(new Station(pr->mac));
         m_store.insert(pr->mac, sta);
+        emit newStation();
     }
 
-    sta->addSSID(pr->SSID);
+    if (sta->addSSID(pr->SSID))
+    {
+        emit newSSID(sta->getMac());
+    }
 }

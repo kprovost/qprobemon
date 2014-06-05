@@ -13,7 +13,9 @@ class Station
 public:
     Station(const MacAddress &mac);
 
-    void addSSID(const QString &SSID);
+    bool addSSID(const QString &SSID);
+
+    const MacAddress& getMac() const { return m_mac; }
 
 private:
     const MacAddress m_mac;
@@ -29,6 +31,10 @@ public:
     ProbeStore();
 
     int size() const { return m_store.size(); }
+
+signals:
+    void newStation();
+    void newSSID(MacAddress station);
 
 public slots:
     void probeRequest(ProbeRequestP_t pr);
