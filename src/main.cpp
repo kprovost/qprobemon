@@ -61,7 +61,7 @@ int main(int argc, char **argv)
     QObject::connect(&filter, SIGNAL(probeRequest(ProbeRequestP_t)),
                 &store, SLOT(probeRequest(ProbeRequestP_t)));
 
-    MainWindow mainWindow(im);
+    MainWindow mainWindow(im, store);
     mainWindow.show();
 
     return app.exec();

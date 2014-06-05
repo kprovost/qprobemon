@@ -15,6 +15,7 @@ set(SRC
     src/Packet.cpp
     src/ProbeRequestFilter.cpp
     src/ProbeStore.cpp
+    src/ProbesModel.cpp
     src/TagParser.cpp
     src/Sniffer.cpp)
 
@@ -25,6 +26,7 @@ set(HDR
     src/Packet.h
     src/ProbeRequestFilter.h
     src/ProbeStore.h
+    src/ProbesModel.h
     src/TagParser.h
     src/Sniffer.h)
 
