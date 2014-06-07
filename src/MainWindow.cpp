@@ -42,8 +42,11 @@ MainWindow::~MainWindow()
 void MainWindow::setupMenu()
 {
     m_menubar = new QMenuBar();
-    m_layout->addWidget(m_menubar, 0, 0);
     m_fileMenu = m_menubar->addMenu("&File");
+    m_quitAction = new QAction(QString("&Quit"), NULL);
+    m_fileMenu->addAction(m_quitAction);
+
+    m_layout->addWidget(m_menubar, 0, 0);
 }
 
 void MainWindow::updateChannelList()

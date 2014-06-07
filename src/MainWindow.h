@@ -35,6 +35,7 @@ private:
 
     QMenuBar *m_menubar;
     QMenu *m_fileMenu;
+    QAction *m_quitAction;
 
     InterfaceManagerP_t m_interface;
 
