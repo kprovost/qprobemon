@@ -64,5 +64,8 @@ int main(int argc, char **argv)
     MainWindow mainWindow(im, store);
     mainWindow.show();
 
+    QObject::connect(&mainWindow, SIGNAL(quit()),
+            &app, SLOT(quit()));
+
     return app.exec();
 }

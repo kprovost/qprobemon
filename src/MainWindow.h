@@ -39,7 +39,11 @@ private:
 
     InterfaceManagerP_t m_interface;
 
+signals:
+    void quit();
+
 private slots:
     void channelChange(int index);
     void redraw();
+    void quit(bool checked);
 };

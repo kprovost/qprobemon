@@ -46,6 +46,9 @@ void MainWindow::setupMenu()
     m_quitAction = new QAction(QString("&Quit"), NULL);
     m_fileMenu->addAction(m_quitAction);
 
+    connect(m_quitAction, SIGNAL(triggered(bool)),
+            this, SLOT(quit(bool)));
+
     m_layout->addWidget(m_menubar, 0, 0);
 }
 
@@ -74,4 +77,9 @@ void MainWindow::redraw()
     m_tree->resizeColumnToContents(2);
     m_tree->resizeColumnToContents(3);
     m_tree->expandAll();
+}
+
+void MainWindow::quit(bool checked)
+{
+    emit quit();
 }
