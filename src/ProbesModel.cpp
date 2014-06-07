@@ -139,6 +139,10 @@ QVariant ProbesModel::headerData(int section, Qt::Orientation orientation, int r
 void ProbesModel::newStation()
 {
     emit layoutChanged();
+
+    emit statusMessage(QString("%1 stations, %2 SSIDs...")
+            .arg(m_store.size())
+            .arg(m_store.getSSIDcount()));
 }
 
 void ProbesModel::newSSID(MacAddress mac)

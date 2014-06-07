@@ -52,6 +52,16 @@ ProbeStore::ProbeStore()
 
 }
 
+int ProbeStore::getSSIDcount() const
+{
+    int total = 0;
+    foreach(const StationPtr_t& station, m_store)
+    {
+        total += station->getSSIDcount();
+    }
+    return total;
+}
+
 const StationPtr_t ProbeStore::getStation(const MacAddress& mac) const
 {
     StationMap_t::const_iterator it = m_store.find(mac);

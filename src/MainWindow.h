@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QTreeView>
+#include <QStatusBar>
 
 #include "InterfaceManager.h"
 #include "ProbesModel.h"
@@ -27,6 +28,7 @@ private:
     QComboBox *m_channelList;
     QTreeView *m_tree;
     ProbesModel *m_model;
+    QStatusBar *m_statusbar;
 
     InterfaceManagerP_t m_interface;
 

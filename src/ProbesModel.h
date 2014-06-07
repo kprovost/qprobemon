@@ -19,6 +19,9 @@ public:
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
+signals:
+    void statusMessage(const QString& message);
+
 public slots:
     void newStation();
     void newSSID(MacAddress mac);

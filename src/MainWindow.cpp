@@ -17,14 +17,19 @@ MainWindow::MainWindow(InterfaceManagerP_t im, ProbeStore &store, QWidget *paren
     m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(0);
 
+    m_statusbar = new QStatusBar(this);
+
     m_layout->addWidget(m_ifaceName, 0, 0);
     m_layout->addWidget(m_channelList, 0, 1);
     m_layout->addWidget(m_tree, 1, 0, 1, 2);
+    m_layout->addWidget(m_statusbar, 2, 0, 1, 2);
 
     setLayout(m_layout);
 
     connect(m_channelList, SIGNAL(currentIndexChanged(int)),
             this, SLOT(channelChange(int)));
+    connect(m_model, SIGNAL(statusMessage(const QString&)),
+            m_statusbar, SLOT(showMessage(const QString&)));
     updateChannelList();
 }
 
