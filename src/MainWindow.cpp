@@ -44,7 +44,7 @@ void MainWindow::updateChannelList()
     }
 }
 
-void  MainWindow::channelChange(int index)
+void MainWindow::channelChange(int index)
 {
     QVariant channel = m_channelList->itemData(index);
     m_interface->setChannel(channel.toInt());

@@ -31,6 +31,6 @@ private:
     InterfaceManagerP_t m_interface;
 
 private slots:
-    void  channelChange(int index);
+    void channelChange(int index);
     void redraw();
 };
