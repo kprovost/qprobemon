@@ -8,23 +8,17 @@ Station::Station(const MacAddress &mac)
     m_firstSeen = QDateTime::currentDateTime();
 }
 
-bool Station::addSSID(const QString &SSID)
+void Station::addSSID(const QString &SSID)
 {
-    bool isNew = false;
     m_lastSeen = QDateTime::currentDateTime();
 
     if (SSID == "Broadcast")
     {
-        if (! m_hasBroadcasted)
-            isNew = true;
         m_hasBroadcasted = true;
-        return isNew;
+        return;
     }
 
-    isNew = not m_SSIDs.contains(SSID);
     m_SSIDs.insert(SSID);
-
-    return isNew;
 }
 
 int Station::getSSIDcount() const
@@ -103,8 +97,6 @@ void ProbeStore::probeRequest(ProbeRequestP_t pr)
         emit newStation();
     }
 
-    if (sta->addSSID(pr->SSID))
-    {
-        emit newSSID(sta->getMac());
-    }
+    sta->addSSID(pr->SSID);
+    emit newSSID(sta->getMac());
 }

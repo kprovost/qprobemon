@@ -14,7 +14,7 @@ class Station
 public:
     Station(const MacAddress &mac);
 
-    bool addSSID(const QString &SSID);
+    void addSSID(const QString &SSID);
 
     const MacAddress& getMac() const { return m_mac; }
     int getSSIDcount() const;
