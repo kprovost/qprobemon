@@ -10,6 +10,8 @@ MainWindow::MainWindow(InterfaceManagerP_t im, ProbeStore &store, QWidget *paren
     m_model = new ProbesModel(store);
     m_tree = new QTreeView();
     m_tree->setModel(m_model);
+    connect(m_model, SIGNAL(layoutChanged()),
+            this, SLOT(redraw()));
 
     m_layout = new QGridLayout(this);
     m_layout->setContentsMargins(0, 0, 0, 0);
@@ -46,4 +48,10 @@ void  MainWindow::channelChange(int index)
 {
     QVariant channel = m_channelList->itemData(index);
     m_interface->setChannel(channel.toInt());
+}
+
+void MainWindow::redraw()
+{
+    m_tree->resizeColumnToContents(0);
+    m_tree->expandAll();
 }

@@ -32,4 +32,5 @@ private:
 
 private slots:
     void  channelChange(int index);
+    void redraw();
 };
