@@ -45,9 +45,11 @@ QString Station::getSSID(int index) const
         index--;
     }
 
-
     assert(index < m_SSIDs.size());
-    return m_SSIDs.values().at(index);
+
+    QList<QString> SSIDs = m_SSIDs.values();
+    qSort(SSIDs.begin(), SSIDs.end());
+    return SSIDs.at(index);
 }
 
 ProbeStore::ProbeStore()
