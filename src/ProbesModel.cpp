@@ -67,7 +67,7 @@ int ProbesModel::columnCount(const QModelIndex & parent) const
     if (parent.isValid())
         return 1;
 
-    return 2;
+    return 3;
 }
 
 QVariant ProbesModel::data(const QModelIndex & index, int role) const
@@ -78,6 +78,7 @@ QVariant ProbesModel::data(const QModelIndex & index, int role) const
     if (index.internalId() == -1)
     {
         const MacAddress &mac = m_store.get(index.row());
+        const StationPtr_t station = m_store.getStation(mac);
         if (index.column() == 0)
         {
             return QVariant(mac.toString());
@@ -85,6 +86,10 @@ QVariant ProbesModel::data(const QModelIndex & index, int role) const
         else if (index.column() == 1)
         {
             return QVariant(mac.getManufacturer());
+        }
+        else if (index.column() == 2)
+        {
+            return QVariant(station->firstSeen());
         }
         else
         {
@@ -117,6 +122,8 @@ QVariant ProbesModel::headerData(int section, Qt::Orientation orientation, int r
             return QString("MAC Address");
         case 1:
             return QString("Manufacturer");
+        case 2:
+            return QString("First seen");
     }
 
     return QVariant();
