@@ -4,6 +4,7 @@
 #include <QSet>
 #include <QMap>
 #include <QSharedPointer>
+#include <QDateTime>
 
 #include "MacAddress.h"
 #include "ProbeRequestFilter.h"
@@ -19,10 +20,14 @@ public:
     int getSSIDcount() const;
     QString getSSID(int index) const;
 
+    const QDateTime& firstSeen() const { return m_firstSeen;}
+
 private:
     const MacAddress m_mac;
     QSet<QString> m_SSIDs;
     bool m_hasBroadcasted;
+
+    QDateTime m_firstSeen;
 };
 typedef QSharedPointer<Station> StationPtr_t;
 

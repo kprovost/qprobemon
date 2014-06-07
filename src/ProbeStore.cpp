@@ -5,7 +5,7 @@ Station::Station(const MacAddress &mac)
     : m_mac(mac),
       m_hasBroadcasted(false)
 {
-
+    m_firstSeen = QDateTime::currentDateTime();
 }
 
 bool Station::addSSID(const QString &SSID)
