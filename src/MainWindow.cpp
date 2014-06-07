@@ -53,5 +53,8 @@ void MainWindow::channelChange(int index)
 void MainWindow::redraw()
 {
     m_tree->resizeColumnToContents(0);
+    m_tree->resizeColumnToContents(1);
+    m_tree->resizeColumnToContents(2);
+    m_tree->resizeColumnToContents(3);
     m_tree->expandAll();
 }
