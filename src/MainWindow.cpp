@@ -19,10 +19,12 @@ MainWindow::MainWindow(InterfaceManagerP_t im, ProbeStore &store, QWidget *paren
 
     m_statusbar = new QStatusBar(this);
 
-    m_layout->addWidget(m_ifaceName, 0, 0);
-    m_layout->addWidget(m_channelList, 0, 1);
-    m_layout->addWidget(m_tree, 1, 0, 1, 2);
-    m_layout->addWidget(m_statusbar, 2, 0, 1, 2);
+    setupMenu();
+
+    m_layout->addWidget(m_ifaceName, 1, 0);
+    m_layout->addWidget(m_channelList, 1, 1);
+    m_layout->addWidget(m_tree, 2, 0, 1, 2);
+    m_layout->addWidget(m_statusbar, 3, 0, 1, 2);
 
     setLayout(m_layout);
 
@@ -35,6 +37,13 @@ MainWindow::MainWindow(InterfaceManagerP_t im, ProbeStore &store, QWidget *paren
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::setupMenu()
+{
+    m_menubar = new QMenuBar();
+    m_layout->addWidget(m_menubar, 0, 0);
+    m_fileMenu = m_menubar->addMenu("&File");
 }
 
 void MainWindow::updateChannelList()

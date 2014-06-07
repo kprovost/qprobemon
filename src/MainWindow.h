@@ -6,6 +6,8 @@
 #include <QComboBox>
 #include <QTreeView>
 #include <QStatusBar>
+#include <QMenu>
+#include <QMenuBar>
 
 #include "InterfaceManager.h"
 #include "ProbesModel.h"
@@ -20,6 +22,7 @@ public:
     ~MainWindow();
 
 private:
+    void setupMenu();
     void updateChannelList();
 
     QGridLayout *m_layout;
@@ -29,6 +32,9 @@ private:
     QTreeView *m_tree;
     ProbesModel *m_model;
     QStatusBar *m_statusbar;
+
+    QMenuBar *m_menubar;
+    QMenu *m_fileMenu;
 
     InterfaceManagerP_t m_interface;
 
