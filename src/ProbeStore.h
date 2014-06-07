@@ -17,7 +17,7 @@ public:
 
     const MacAddress& getMac() const { return m_mac; }
     int getSSIDcount() const { return m_SSIDs.size(); }
-    const QString& getSSID(int index) const;
+    QString getSSID(int index) const;
 
 private:
     const MacAddress m_mac;
