@@ -2,21 +2,50 @@
 #include <assert.h>
 
 Station::Station(const MacAddress &mac)
-    : m_mac(mac)
+    : m_mac(mac),
+      m_hasBroadcasted(false)
 {
 
 }
 
 bool Station::addSSID(const QString &SSID)
 {
-    bool isNew = not m_SSIDs.contains(SSID);
+    bool isNew = false;
+
+    if (SSID == "Broadcast")
+    {
+        if (! m_hasBroadcasted)
+            isNew = true;
+        m_hasBroadcasted = true;
+        return isNew;
+    }
+
+    isNew = not m_SSIDs.contains(SSID);
     m_SSIDs.insert(SSID);
 
     return isNew;
 }
 
+int Station::getSSIDcount() const
+{
+    int size = m_SSIDs.size();
+    if (m_hasBroadcasted)
+        size++;
+
+    return size;
+}
+
 QString Station::getSSID(int index) const
 {
+    if (m_hasBroadcasted)
+    {
+        if (index == 0)
+            return "Broadcast";
+
+        index--;
+    }
+
+
     assert(index < m_SSIDs.size());
     return m_SSIDs.values().at(index);
 }

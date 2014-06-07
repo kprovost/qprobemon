@@ -16,12 +16,13 @@ public:
     bool addSSID(const QString &SSID);
 
     const MacAddress& getMac() const { return m_mac; }
-    int getSSIDcount() const { return m_SSIDs.size(); }
+    int getSSIDcount() const;
     QString getSSID(int index) const;
 
 private:
     const MacAddress m_mac;
     QSet<QString> m_SSIDs;
+    bool m_hasBroadcasted;
 };
 typedef QSharedPointer<Station> StationPtr_t;
 
