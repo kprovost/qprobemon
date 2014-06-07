@@ -17,6 +17,7 @@ QModelIndex ProbesModel::index(int row, int column, const QModelIndex & parent) 
 {
     if (parent.isValid())
     {
+        /* No grandchildren ... */
         if (parent.internalId() != -1)
             return QModelIndex();
 
@@ -38,6 +39,10 @@ int ProbesModel::rowCount(const QModelIndex & parent) const
 {
     if (! parent.isValid())
         return m_store.size();
+
+    /* No grandchildren... */
+    if (parent.internalId() != -1)
+        return 0;
 
     const MacAddress &mac = m_store.get(parent.internalId());
     const StationPtr_t station = m_store.getStation(mac);
