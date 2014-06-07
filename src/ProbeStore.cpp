@@ -44,15 +44,11 @@ const MacAddress& ProbeStore::get(int index) const
 {
     assert(index >= 0);
     assert(index < size());
-    int i = 0;
 
     StationMap_t::const_iterator it = m_store.begin();
 
-    while (i < index)
-    {
+    for (int i = 0; i < index; i++)
         it++;
-        i++;
-    }
 
     return it.key();
 }
