@@ -17,6 +17,7 @@ bool Station::addSSID(const QString &SSID)
 
 QString Station::getSSID(int index) const
 {
+    assert(index < m_SSIDs.size());
     return m_SSIDs.values().at(index);
 }
 
@@ -31,13 +32,17 @@ const StationPtr_t ProbeStore::getStation(const MacAddress& mac) const
     StationPtr_t sta;
 
     if (it == m_store.end())
+    {
+        assert(false);
         return sta;
+    }
 
     return it.value();
 }
 
 const MacAddress& ProbeStore::get(int index) const
 {
+    assert(index >= 0);
     assert(index < size());
     int i = 0;
 
