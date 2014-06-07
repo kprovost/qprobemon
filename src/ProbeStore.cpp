@@ -11,6 +11,7 @@ Station::Station(const MacAddress &mac)
 bool Station::addSSID(const QString &SSID)
 {
     bool isNew = false;
+    m_lastSeen = QDateTime::currentDateTime();
 
     if (SSID == "Broadcast")
     {

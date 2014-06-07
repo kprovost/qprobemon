@@ -20,7 +20,8 @@ public:
     int getSSIDcount() const;
     QString getSSID(int index) const;
 
-    const QDateTime& firstSeen() const { return m_firstSeen;}
+    const QDateTime& firstSeen() const { return m_firstSeen; }
+    const QDateTime& lastSeen() const { return m_lastSeen; }
 
 private:
     const MacAddress m_mac;
@@ -28,6 +29,7 @@ private:
     bool m_hasBroadcasted;
 
     QDateTime m_firstSeen;
+    QDateTime m_lastSeen;
 };
 typedef QSharedPointer<Station> StationPtr_t;
 

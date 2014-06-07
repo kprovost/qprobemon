@@ -5,7 +5,8 @@ enum ProbesModelColumns
 {
     COLUMN_MAC,
     COLUMN_MANUFACTURER,
-    COLUMN_FIRSTSEEN
+    COLUMN_FIRSTSEEN,
+    COLUMN_LASTSEEN
 };
 
 ProbesModel::ProbesModel(ProbeStore &store)
@@ -74,7 +75,7 @@ int ProbesModel::columnCount(const QModelIndex & parent) const
     if (parent.isValid())
         return 1;
 
-    return 3;
+    return 4;
 }
 
 QVariant ProbesModel::data(const QModelIndex & index, int role) const
@@ -94,6 +95,8 @@ QVariant ProbesModel::data(const QModelIndex & index, int role) const
                 return QVariant(mac.getManufacturer());
             case COLUMN_FIRSTSEEN:
                 return QVariant(station->firstSeen());
+            case COLUMN_LASTSEEN:
+                return QVariant(station->lastSeen());
             default:
                 assert(false);
         }
@@ -126,6 +129,8 @@ QVariant ProbesModel::headerData(int section, Qt::Orientation orientation, int r
             return QString("Manufacturer");
         case COLUMN_FIRSTSEEN:
             return QString("First seen");
+        case COLUMN_LASTSEEN:
+            return QString("Last seen");
     }
 
     return QVariant();
