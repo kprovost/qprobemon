@@ -1,6 +1,13 @@
 #include "ProbesModel.h"
 #include <assert.h>
 
+enum ProbesModelColumns
+{
+    COLUMN_MAC,
+    COLUMN_MANUFACTURER,
+    COLUMN_FIRSTSEEN
+};
+
 ProbesModel::ProbesModel(ProbeStore &store)
     : m_store(store)
 {
@@ -79,21 +86,16 @@ QVariant ProbesModel::data(const QModelIndex & index, int role) const
     {
         const MacAddress &mac = m_store.get(index.row());
         const StationPtr_t station = m_store.getStation(mac);
-        if (index.column() == 0)
+        switch (index.column())
         {
-            return QVariant(mac.toString());
-        }
-        else if (index.column() == 1)
-        {
-            return QVariant(mac.getManufacturer());
-        }
-        else if (index.column() == 2)
-        {
-            return QVariant(station->firstSeen());
-        }
-        else
-        {
-            assert(false);
+            case COLUMN_MAC:
+                return QVariant(mac.toString());
+            case COLUMN_MANUFACTURER:
+                return QVariant(mac.getManufacturer());
+            case COLUMN_FIRSTSEEN:
+                return QVariant(station->firstSeen());
+            default:
+                assert(false);
         }
     }
     else
@@ -118,11 +120,11 @@ QVariant ProbesModel::headerData(int section, Qt::Orientation orientation, int r
 
     switch (section)
     {
-        case 0:
+        case COLUMN_MAC:
             return QString("MAC Address");
-        case 1:
+        case COLUMN_MANUFACTURER:
             return QString("Manufacturer");
-        case 2:
+        case COLUMN_FIRSTSEEN:
             return QString("First seen");
     }
 
