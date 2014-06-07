@@ -1,4 +1,5 @@
 #include "ProbesModel.h"
+#include <assert.h>
 
 ProbesModel::ProbesModel(ProbeStore &store)
     : m_store(store)
