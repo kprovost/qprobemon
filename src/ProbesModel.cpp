@@ -22,6 +22,7 @@ ProbesModel::~ProbesModel()
 {
 
 }
+
 QModelIndex ProbesModel::index(int row, int column, const QModelIndex & parent) const
 {
     if (parent.isValid())
