@@ -2,7 +2,9 @@
 #include <assert.h>
 #include <iostream>
 
-const int Sniffer::SNAPLEN = 1500;
+const int Sniffer::SNAPLEN = 8 /* Radiotap */
+                            + 24 /* 802.11 header */
+                            + 32 /* SSID */;
 
 SnifferP_t Sniffer::create(const QString &interface)
 {
