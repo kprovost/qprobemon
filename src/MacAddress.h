@@ -9,12 +9,14 @@ public:
 
     QString toString() const;
     QString getOUID() const;
-    QString getManufacturer() const;
+    const QString& getManufacturer() const { return m_manuf; }
 
     bool operator<(const MacAddress &mac) const;
 
 private:
-    QByteArray m_mac;
+    QString lookupManufacturer() const;
 
+    QByteArray m_mac;
+    QString m_manuf;
     static const QString MANUF_FILE;
 };

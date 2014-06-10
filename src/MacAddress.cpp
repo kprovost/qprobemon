@@ -13,6 +13,7 @@ MacAddress::MacAddress(const quint8 *mac)
     assert(mac);
 
     m_mac = QByteArray((const char*)mac, 6);
+    m_manuf = lookupManufacturer();
 }
 
 QString MacAddress::toString() const
@@ -38,7 +39,7 @@ QString MacAddress::getOUID() const
         .arg(QString::number((unsigned char)m_mac[2], 16));
 }
 
-QString MacAddress::getManufacturer() const
+QString MacAddress::lookupManufacturer() const
 {
     QFile f(MANUF_FILE);
 
