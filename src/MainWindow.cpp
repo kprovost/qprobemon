@@ -52,6 +52,7 @@ void MainWindow::setupMenu()
 
     m_optionsMenu = m_menubar->addMenu("&Options");
     m_hideBroadcastAction = new QAction(QString("&Hide broadcast"), NULL);
+    m_hideBroadcastAction->setCheckable(true);
     m_optionsMenu->addAction(m_hideBroadcastAction);
 
     connect(m_hideBroadcastAction, SIGNAL(triggered(bool)),
@@ -94,5 +95,5 @@ void MainWindow::quit(bool checked)
 
 void MainWindow::hideBroadcastSSIDs(bool checked)
 {
-    m_model->hideBroadcastSSIDs(true);
+    m_model->hideBroadcastSSIDs(checked);
 }
