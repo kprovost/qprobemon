@@ -38,7 +38,7 @@ class ProbeStore : public QObject
     Q_OBJECT;
 
 public:
-    ProbeStore();
+    ProbeStore(bool keepBroadcast);
 
     int size() const { return m_store.size(); }
     int getSSIDcount() const;
@@ -56,4 +56,5 @@ public slots:
 private:
     typedef QMap<MacAddress, StationPtr_t> StationMap_t;
     StationMap_t m_store;
+    const bool m_keepBroadcast;
 };

@@ -47,7 +47,8 @@ QString Station::getSSID(int index) const
     return SSIDs.at(index);
 }
 
-ProbeStore::ProbeStore()
+ProbeStore::ProbeStore(bool keepBroadcast)
+    : m_keepBroadcast(keepBroadcast)
 {
 
 }
@@ -92,6 +93,9 @@ const MacAddress& ProbeStore::get(int index) const
 void ProbeStore::probeRequest(ProbeRequestP_t pr)
 {
     assert(pr);
+
+    if (! m_keepBroadcast && pr->SSID == "Broadcast")
+        return;
 
     StationMap_t::iterator it = m_store.find(pr->mac);
     StationPtr_t sta;

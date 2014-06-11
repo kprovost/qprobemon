@@ -56,7 +56,7 @@ int main(int argc, char **argv)
     QObject::connect(sniff.data(), SIGNAL(received(PacketP_t)),
             &filter, SLOT(received(PacketP_t)));
 
-    ProbeStore store;
+    ProbeStore store(true);
 
     QObject::connect(&filter, SIGNAL(probeRequest(ProbeRequestP_t)),
                 &store, SLOT(probeRequest(ProbeRequestP_t)));
