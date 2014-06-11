@@ -50,6 +50,13 @@ void MainWindow::setupMenu()
     connect(m_quitAction, SIGNAL(triggered(bool)),
             this, SLOT(quit(bool)));
 
+    m_optionsMenu = m_menubar->addMenu("&Options");
+    m_hideBroadcastAction = new QAction(QString("&Hide broadcast"), NULL);
+    m_optionsMenu->addAction(m_hideBroadcastAction);
+
+    connect(m_hideBroadcastAction, SIGNAL(triggered(bool)),
+            this, SLOT(hideBroadcastSSIDs(bool)));
+
     m_layout->addWidget(m_menubar, 0, 0);
 }
 
@@ -83,4 +90,9 @@ void MainWindow::redraw()
 void MainWindow::quit(bool checked)
 {
     emit quit();
+}
+
+void MainWindow::hideBroadcastSSIDs(bool checked)
+{
+    m_model->hideBroadcastSSIDs(true);
 }

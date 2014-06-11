@@ -141,6 +141,16 @@ QVariant ProbesModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant();
 }
 
+void ProbesModel::hideBroadcastSSIDs(bool hideBroadcast)
+{
+    if (hideBroadcast)
+        m_store = &m_noBroadcastStore;
+    else
+        m_store = &m_broadcastStore;
+
+    emit layoutChanged();
+}
+
 void ProbesModel::newStation()
 {
     emit layoutChanged();

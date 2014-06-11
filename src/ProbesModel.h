@@ -19,6 +19,8 @@ public:
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
+    void hideBroadcastSSIDs(bool showBroadcast);
+
 signals:
     void statusMessage(const QString& message);
 

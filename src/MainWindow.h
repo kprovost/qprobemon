@@ -36,7 +36,9 @@ private:
 
     QMenuBar *m_menubar;
     QMenu *m_fileMenu;
+    QMenu *m_optionsMenu;
     QAction *m_quitAction;
+    QAction *m_hideBroadcastAction;
 
     InterfaceManagerP_t m_interface;
 
@@ -47,4 +49,5 @@ private slots:
     void channelChange(int index);
     void redraw();
     void quit(bool checked);
+    void hideBroadcastSSIDs(bool checked);
 };
