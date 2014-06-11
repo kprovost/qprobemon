@@ -57,11 +57,14 @@ int main(int argc, char **argv)
             &filter, SLOT(received(PacketP_t)));
 
     ProbeStore store(true);
+    ProbeStore noBroadcastStore(false);
 
     QObject::connect(&filter, SIGNAL(probeRequest(ProbeRequestP_t)),
                 &store, SLOT(probeRequest(ProbeRequestP_t)));
+    QObject::connect(&filter, SIGNAL(probeRequest(ProbeRequestP_t)),
+                &noBroadcastStore, SLOT(probeRequest(ProbeRequestP_t)));
 
-    MainWindow mainWindow(im, store);
+    MainWindow mainWindow(im, store, noBroadcastStore);
     mainWindow.show();
 
     QObject::connect(&mainWindow, SIGNAL(quit()),

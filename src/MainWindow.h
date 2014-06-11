@@ -18,7 +18,8 @@ class MainWindow : public QWidget
     Q_OBJECT;
 
 public:
-    MainWindow(InterfaceManagerP_t im, ProbeStore &store, QWidget *parent = NULL);
+    MainWindow(InterfaceManagerP_t im, ProbeStore &store,
+            ProbeStore &noBroadcastStore, QWidget *parent = NULL);
     ~MainWindow();
 
 private:

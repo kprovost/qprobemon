@@ -9,12 +9,16 @@ enum ProbesModelColumns
     COLUMN_LASTSEEN
 };
 
-ProbesModel::ProbesModel(ProbeStore &store)
-    : m_store(store)
+ProbesModel::ProbesModel(ProbeStore &broadcastStore, ProbeStore &noBroadcastStore)
+    : m_broadcastStore(broadcastStore),
+      m_noBroadcastStore(noBroadcastStore)
 {
-    connect(&m_store, SIGNAL(newStation()),
+    /* Default to broadcast store */
+    m_store = &m_broadcastStore;
+
+    connect(m_store, SIGNAL(newStation()),
             this, SLOT(newStation()));
-    connect(&m_store, SIGNAL(newSSID(MacAddress)),
+    connect(m_store, SIGNAL(newSSID(MacAddress)),
             this, SLOT(newSSID(MacAddress)));
 }
 
@@ -31,8 +35,8 @@ QModelIndex ProbesModel::index(int row, int column, const QModelIndex & parent) 
         if (parent.internalId() != -1)
             return QModelIndex();
 
-        const MacAddress &mac = m_store.get(parent.row());
-        const StationPtr_t station = m_store.getStation(mac);
+        const MacAddress &mac = m_store->get(parent.row());
+        const StationPtr_t station = m_store->getStation(mac);
 
         if (row >= station->getSSIDcount())
             return QModelIndex();
@@ -40,7 +44,7 @@ QModelIndex ProbesModel::index(int row, int column, const QModelIndex & parent) 
         return createIndex(row, column, parent.row());
     }
 
-    if (row >= m_store.size())
+    if (row >= m_store->size())
         return QModelIndex();
 
     return createIndex(row, column, -1);
@@ -59,14 +63,14 @@ QModelIndex ProbesModel::parent(const QModelIndex &index) const
 int ProbesModel::rowCount(const QModelIndex & parent) const
 {
     if (! parent.isValid())
-        return m_store.size();
+        return m_store->size();
 
     /* No grandchildren... */
     if (parent.internalId() != -1)
         return 0;
 
-    const MacAddress &mac = m_store.get(parent.row());
-    const StationPtr_t station = m_store.getStation(mac);
+    const MacAddress &mac = m_store->get(parent.row());
+    const StationPtr_t station = m_store->getStation(mac);
 
     return station->getSSIDcount();
 }
@@ -86,8 +90,8 @@ QVariant ProbesModel::data(const QModelIndex & index, int role) const
 
     if (index.internalId() == -1)
     {
-        const MacAddress &mac = m_store.get(index.row());
-        const StationPtr_t station = m_store.getStation(mac);
+        const MacAddress &mac = m_store->get(index.row());
+        const StationPtr_t station = m_store->getStation(mac);
         switch (index.column())
         {
             case COLUMN_MAC:
@@ -107,8 +111,8 @@ QVariant ProbesModel::data(const QModelIndex & index, int role) const
         if (index.column() != 0)
             return QVariant();
 
-        const MacAddress &mac = m_store.get(index.internalId());
-        const StationPtr_t station = m_store.getStation(mac);
+        const MacAddress &mac = m_store->get(index.internalId());
+        const StationPtr_t station = m_store->getStation(mac);
 
         if (index.row() >= station->getSSIDcount())
             return QVariant();
@@ -142,8 +146,8 @@ void ProbesModel::newStation()
     emit layoutChanged();
 
     emit statusMessage(QString("%1 stations, %2 SSIDs...")
-            .arg(m_store.size())
-            .arg(m_store.getSSIDcount()));
+            .arg(m_store->size())
+            .arg(m_store->getSSIDcount()));
 }
 
 void ProbesModel::newSSID(MacAddress mac)

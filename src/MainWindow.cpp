@@ -1,13 +1,14 @@
 #include "MainWindow.h"
 
-MainWindow::MainWindow(InterfaceManagerP_t im, ProbeStore &store, QWidget *parent)
+MainWindow::MainWindow(InterfaceManagerP_t im, ProbeStore &store,
+        ProbeStore &noBroadcastStore, QWidget *parent)
     : QWidget(parent),
       m_interface(im)
 {
     m_ifaceName = new QLabel(QString("Interface: %1").arg(im->getInterfaceName()));
     m_channelList = new QComboBox();
 
-    m_model = new ProbesModel(store);
+    m_model = new ProbesModel(store, noBroadcastStore);
     m_tree = new QTreeView();
     m_tree->setModel(m_model);
     connect(m_model, SIGNAL(layoutChanged()),

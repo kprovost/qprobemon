@@ -9,7 +9,7 @@ class ProbesModel : public QAbstractItemModel
     Q_OBJECT;
 
 public:
-    ProbesModel(ProbeStore &store);
+    ProbesModel(ProbeStore &broadcastStore, ProbeStore &noBroadcastStore);
     virtual ~ProbesModel();
 
     QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const;
@@ -27,5 +27,7 @@ public slots:
     void newSSID(MacAddress mac);
 
 private:
-    ProbeStore &m_store;
+    ProbeStore &m_broadcastStore;
+    ProbeStore &m_noBroadcastStore;
+    ProbeStore *m_store;
 };
