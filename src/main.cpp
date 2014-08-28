@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QStringList>
+#include <QTextCodec>
 #include <iostream>
 
 #include "InterfaceManager.h"
@@ -17,8 +18,10 @@ void usage(const QString &appName)
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
-
     QStringList args = app.arguments();
+
+    /* Default to UTF-8 for all strings */
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
     QString appName = args.at(0);
     args.removeAt(0);
